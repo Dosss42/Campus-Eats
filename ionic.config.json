@@ -1,0 +1,7 @@
+{
+  "name": "Campus Eats",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
