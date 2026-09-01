@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>CampusEats Menu</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="menu-container">
+
+   <h1>CampusEats Menu</h1>
+
+<p>
+  Cart Items: {{ cart.count() }}
+</p>
+
+<p>
+  Cart Total: PHP {{ cart.total() }}
+</p>
+
+<p>
+  {{ items().length }} dishes available
+</p>
+
+@if (menu.loading()) {
+
+  <p>Loading the menu...</p>
+
+} @else if (menu.error()) {
+
+  <p>Could not reach the canteen.</p>
+
+  <button (click)="menu.load()">
+    Try again
+  </button>
+
+} @else {
+
+  @for (item of items(); track item.id) {
+
+    <div class="menu-row">
+
+      <img
+        [src]="item.image"
+        [alt]="item.name"
+      />
+
+      <div>
+
+        <h2>
+          {{ item.emoji }} {{ item.name }}
+        </h2>
+
+        <p>
+          {{ item.description }}
+        </p>
+
+        <p>
+          PHP {{ item.price }}
+        </p>
+
+        <p>
+          Category: {{ item.category }}
+        </p>
+
+        <p>
+          Rating: {{ item.rating }}
+        </p>
+
+        <p>
+          Preparation: {{ item.prepMinutes }} minutes
+        </p>
+
+        @if (item.available) {
+
+<button (click)="cart.add(item)">
+  Add to cart
+</button>
+
+        } @else {
+
+          <button disabled>
+            Sold out
+          </button>
+
+        }
+
+      </div>
+
+    </div>
+
+  } @empty {
+
+    <p>No dishes available.</p>
+
+  }
+
+}
+
+  </div>
+
+</ion-content>
+
+

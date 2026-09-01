@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>CampusEats Cart</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="cart-container">
+
+    <h1>Your Cart</h1>
+
+    <h2>
+      Items: {{ count() }}
+    </h2>
+
+    <h2>
+      Total: PHP {{ total() }}
+    </h2>
+
+    @if (lines().length === 0) {
+
+      <p>Your cart is empty.</p>
+
+    } @else {
+
+      @for (line of lines(); track line.item.id) {
+
+        <div class="cart-row">
+
+          <img
+            [src]="line.item.image"
+            [alt]="line.item.name"
+          />
+
+          <div class="cart-info">
+
+            <h2>
+              {{ line.item.emoji }} {{ line.item.name }}
+            </h2>
+
+            <p>
+              Price: PHP {{ line.item.price }}
+            </p>
+
+            <p>
+              Quantity: {{ line.quantity }}
+            </p>
+
+            <p>
+              Subtotal:
+              PHP {{ line.item.price * line.quantity }}
+            </p>
+
+            <button
+              (click)="cart.remove(line.item.id)"
+            >
+              Remove
+            </button>
+
+          </div>
+
+        </div>
+
+      }
+
+    }
+
+  </div>
+
+</ion-content>

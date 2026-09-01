@@ -1,0 +1,42 @@
+.cart-container {
+  padding: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.cart-row {
+  display: flex;
+  gap: 16px;
+
+  padding: 16px;
+  margin-bottom: 16px;
+
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.cart-row img {
+  width: 120px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.cart-info {
+  flex: 1;
+}
+
+.cart-info h2 {
+  margin-top: 0;
+}
+
+@media (max-width: 600px) {
+  .cart-row {
+    flex-direction: column;
+  }
+
+  .cart-row img {
+    width: 100%;
+    height: 180px;
+  }
+}
