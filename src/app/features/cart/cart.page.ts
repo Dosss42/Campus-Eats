@@ -7,6 +7,8 @@ import {
   IonToolbar,
 } from '@ionic/angular';
 
+import { RouterLink } from '@angular/router';
+
 import { CartService } from '../../core/services/cart.service';
 
 @Component({
@@ -17,6 +19,7 @@ import { CartService } from '../../core/services/cart.service';
     IonHeader,
     IonTitle,
     IonToolbar,
+    RouterLink,
   ],
   templateUrl: './cart.page.html',
   styleUrl: './cart.page.scss',
