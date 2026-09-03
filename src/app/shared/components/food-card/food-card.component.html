@@ -1,0 +1,46 @@
+<div class="food-card">
+
+  <img
+    [src]="item.image"
+    [alt]="item.name"
+  />
+
+  <div class="food-info">
+
+    <h2>
+      {{ item.emoji }} {{ item.name }}
+    </h2>
+
+    <p>
+      {{ item.description }}
+    </p>
+
+    <p>
+      PHP {{ item.price }}
+    </p>
+
+    <p>
+      Category: {{ item.category }}
+    </p>
+
+    <p>
+      ⭐ {{ item.rating }}
+    </p>
+
+    @if (item.available) {
+
+      <button (click)="onAddToCart()">
+        Add to cart
+      </button>
+
+    } @else {
+
+      <button disabled>
+        Sold out
+      </button>
+
+    }
+
+  </div>
+
+</div>

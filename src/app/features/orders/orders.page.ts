@@ -1,19 +1,100 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular';
+
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+} from '@ionic/angular';
+
+import { OrderService } from '../../core/services/order.service';
+import { CartService } from '../../core/services/cart.service';
 
 @Component({
-  selector: 'app-orders',
+  selector: 'app-order',
+  standalone: true,
+  imports: [
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    FormsModule,
+  ],
   templateUrl: './orders.page.html',
-  styleUrls: ['./orders.page.scss'],
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  styleUrl: './orders.page.scss',
 })
-export class OrdersPage implements OnInit {
+export class OrderPage implements OnInit {
 
-  constructor() { }
+  readonly orderService = inject(OrderService);
 
-  ngOnInit() {
+  readonly cart = inject(CartService);
+
+  readonly orders = this.orderService.all;
+
+  readonly loading = this.orderService.loading;
+
+  readonly error = this.orderService.error;
+
+  customerName = '';
+
+  roomOrStall = '';
+
+  notes = '';
+
+  ngOnInit(): void {
+
+    this.orderService.load();
+
   }
 
+  placeOrder(): void {
+
+    if (!this.customerName || !this.roomOrStall) {
+
+      alert('Please enter your name and room/stall.');
+
+      return;
+
+    }
+
+    if (this.cart.all().length === 0) {
+
+      alert('Your cart is empty.');
+
+      return;
+
+    }
+
+    const order = {
+
+      customerName: this.customerName,
+
+      roomOrStall: this.roomOrStall,
+
+      notes: this.notes,
+
+      lines: this.cart.all().map((line) => ({
+
+        itemId: line.item.id,
+
+        quantity: line.quantity,
+
+      })),
+
+    };
+
+    this.orderService.create(order);
+
+    alert('Order placed successfully!');
+
+    this.customerName = '';
+
+    this.roomOrStall = '';
+
+    this.notes = '';
+
+    this.cart.clear();
+
+  }
 }

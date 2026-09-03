@@ -9,22 +9,23 @@ import {
 
 import { MenuService } from '../../core/services/menu.service';
 import { CartService } from '../../core/services/cart.service';
+import { FoodCardComponent } from '../../shared/components/food-card/food-card.component';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-
   imports: [
     IonHeader,
     IonToolbar,
     IonTitle,
     IonContent,
+    FoodCardComponent,
   ],
-
   templateUrl: './menu.page.html',
   styleUrl: './menu.page.scss',
 })
 export class MenuPage implements OnInit {
+
   readonly menu = inject(MenuService);
   readonly cart = inject(CartService);
 

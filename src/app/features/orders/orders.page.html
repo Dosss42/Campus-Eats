@@ -1,13 +1,105 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>orders</ion-title>
+    <ion-title>CampusEats Orders</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">orders</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  <div class="order-container">
+
+    <h1>Place Order</h1>
+
+    <label for="customerName">
+      Customer Name
+    </label>
+
+    <input
+      id="customerName"
+      type="text"
+      [(ngModel)]="customerName"
+      placeholder="Enter your name"
+    />
+
+    <label for="roomOrStall">
+      Room / Stall
+    </label>
+
+    <input
+      id="roomOrStall"
+      type="text"
+      [(ngModel)]="roomOrStall"
+      placeholder="Example: Room 201"
+    />
+
+    <label for="notes">
+      Notes
+    </label>
+
+    <textarea
+      id="notes"
+      [(ngModel)]="notes"
+      placeholder="Optional notes"
+    ></textarea>
+
+    <button
+      (click)="placeOrder()"
+    >
+      Place Order
+    </button>
+
+    <hr>
+
+    <h2>Existing Orders</h2>
+
+    @if (loading()) {
+
+      <p>Loading orders...</p>
+
+    } @else if (error()) {
+
+      <p>Could not load orders.</p>
+
+      <button (click)="orderService.load()">
+        Try again
+      </button>
+
+    } @else {
+
+      @for (order of orders(); track order.id) {
+
+        <div class="order-card">
+
+          <h3>
+            {{ order.reference }}
+          </h3>
+
+          <p>
+            Customer: {{ order.customerName }}
+          </p>
+
+          <p>
+            Location: {{ order.roomOrStall }}
+          </p>
+
+          <p>
+            Status: {{ order.status }}
+          </p>
+
+          <p>
+            Total: PHP {{ order.total }}
+          </p>
+
+        </div>
+
+      } @empty {
+
+        <p>No orders yet.</p>
+
+      }
+
+    }
+
+  </div>
+
 </ion-content>
