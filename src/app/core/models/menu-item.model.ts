@@ -15,5 +15,5 @@ export interface MenuItem {
   prepMinutes: number;
   rating: number;
   emoji: string;
-  image: string;
+  image: string; 
 }

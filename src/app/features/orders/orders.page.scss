@@ -1,45 +1,237 @@
+/* ========================================
+   MAIN PAGE BACKGROUND
+======================================== */
+
 ion-content {
-  --background: #f5f5f5;
-  --color: #222;
+  --background: #ffffff;
 }
+
+
+/* ========================================
+   ORDER CONTAINER
+======================================== */
 
 .order-container {
-  padding: 16px;
-  max-width: 1000px;
+  max-width: 700px;
   margin: 0 auto;
+  padding: 24px 20px 40px;
+
+  background: #ffffff;
 }
+
+
+/* ========================================
+   PAGE TITLE
+======================================== */
 
 .order-container h1 {
+  margin: 0 0 24px;
+
+  font-size: 28px;
+  font-weight: 700;
+
   color: #222;
 }
+
+
+/* ========================================
+   FORM LABELS
+======================================== */
+
+.order-container label {
+  display: block;
+
+  margin-top: 18px;
+  margin-bottom: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #333;
+}
+
+
+/* ========================================
+   INPUTS & TEXTAREA
+======================================== */
+
+.order-container input,
+.order-container textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 13px 15px;
+
+  background: #ffffff;
+  color: #222;
+
+  border: 1px solid #cfd4dc;
+  border-radius: 10px;
+
+  font-size: 15px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+/* ========================================
+   CUSTOMER NAME & ROOM INPUT
+======================================== */
+
+.order-container input {
+  height: 48px;
+}
+
+
+/* ========================================
+   NOTES TEXTAREA
+======================================== */
+
+.order-container textarea {
+  min-height: 110px;
+
+  resize: vertical;
+
+  font-family: inherit;
+}
+
+
+/* ========================================
+   PLACEHOLDER TEXT
+======================================== */
+
+.order-container input::placeholder,
+.order-container textarea::placeholder {
+  color: #9aa1ad;
+}
+
+
+/* ========================================
+   INPUT FOCUS
+======================================== */
+
+.order-container input:focus,
+.order-container textarea:focus {
+  background: #ffffff;
+
+  border-color: #3880ff;
+
+  box-shadow: 0 0 0 3px rgba(56, 128, 255, 0.12);
+}
+
+
+/* ========================================
+   PLACE ORDER BUTTON
+======================================== */
+
+.order-container > button {
+  width: 100%;
+
+  margin-top: 24px;
+  padding: 14px 18px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #3880ff;
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.1s ease;
+}
+
+
+/* Button hover */
+
+.order-container > button:hover {
+  background: #3171e0;
+}
+
+
+/* Button click */
+
+.order-container > button:active {
+  transform: scale(0.98);
+}
+
+
+/* ========================================
+   DIVIDER
+======================================== */
+
+.order-container hr {
+  margin: 32px 0;
+
+  border: none;
+
+  border-top: 1px solid #e1e4e8;
+}
+
+
+/* ========================================
+   EXISTING ORDERS TITLE
+======================================== */
+
+.order-container h2 {
+  margin-bottom: 16px;
+
+  font-size: 22px;
+  font-weight: 700;
+
+  color: #222;
+}
+
+
+/* ========================================
+   ORDER CARD
+======================================== */
 
 .order-card {
-  background: white;
-  color: #222;
-  border: 1px solid #ddd;
+  padding: 18px;
+  margin-bottom: 14px;
+
+  background: #ffffff;
+
+  border: 1px solid #e1e4e8;
   border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
-.order-card h2 {
+
+/* ========================================
+   ORDER REFERENCE
+======================================== */
+
+.order-card h3 {
   margin-top: 0;
+  margin-bottom: 12px;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  color: #3880ff;
 }
+
+
+/* ========================================
+   ORDER DETAILS
+======================================== */
 
 .order-card p {
-  color: #444;
-}
+  margin: 6px 0;
 
-.order-line {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
-}
+  color: #555;
 
-button {
-  padding: 8px 14px;
-  cursor: pointer;
+  font-size: 14px;
 }

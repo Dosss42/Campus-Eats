@@ -14,7 +14,50 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-.food-card img {
+.food-card img {.food-info button {
+  margin-top: 10px;
+
+  padding: 9px 16px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #3880ff;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
+}
+
+/* Hover */
+.food-info button:hover {
+  background: #3171e0;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
+}
+
+/* Click */
+.food-info button:active {
+  transform: scale(0.97);
+}
+
+/* Sold out */
+.food-info button:disabled {
+  background: #999999;
+  color: #ffffff;
+
+  cursor: not-allowed;
+
+  box-shadow: none;
+}
   width: 160px;
   height: 110px;
 

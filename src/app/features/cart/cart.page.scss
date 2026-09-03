@@ -1,59 +1,263 @@
-.cart-container {
-  padding: 16px;
-  max-width: 1000px;
-  margin: 0 auto;
+/* ========================================
+   MAIN PAGE BACKGROUND
+======================================== */
+
+ion-content {
+  --background: #ffffff;
 }
+
+
+/* ========================================
+   CART CONTAINER
+======================================== */
+
+.cart-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
+
+  background: #ffffff;
+}
+
+
+/* ========================================
+   PAGE TITLE
+======================================== */
+
+.cart-container h1 {
+  margin: 0 0 20px;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  color: #222;
+}
+
+
+/* ========================================
+   CART SUMMARY
+======================================== */
+
+.cart-container > p {
+  margin: 6px 0;
+
+  font-size: 15px;
+  color: #555;
+}
+
+
+/* ========================================
+   CART ITEM
+======================================== */
 
 .cart-row {
   display: flex;
   gap: 16px;
 
+  margin-top: 18px;
   padding: 16px;
-  margin-bottom: 16px;
 
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  background: #ffffff;
+
+  border: 1px solid #e1e4e8;
+  border-radius: 12px;
+
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
+
+
+/* ========================================
+   FOOD IMAGE
+======================================== */
 
 .cart-row img {
-  width: 120px;
+  width: 110px;
   height: 90px;
+
   object-fit: cover;
+
   border-radius: 8px;
 }
+
+
+/* ========================================
+   CART INFORMATION
+======================================== */
 
 .cart-info {
   flex: 1;
 }
 
+
 .cart-info h2 {
-  margin-top: 0;
+  margin: 0 0 8px;
+
+  font-size: 17px;
+  font-weight: 600;
+
+  color: #222;
 }
 
-@media (max-width: 600px) {
-  .cart-row {
-    flex-direction: column;
-  }
 
-  .cart-row img {
-    width: 100%;
-    height: 180px;
-  }
+.cart-info p {
+  margin: 5px 0;
+
+  font-size: 14px;
+  color: #555;
 }
 
+
+/* ========================================
+   REMOVE BUTTON
+======================================== */
+
+.cart-info button {
+  margin-top: 10px;
+
+  padding: 7px 12px;
+
+  border: 1px solid #d5d9df;
+  border-radius: 7px;
+
+  background: #ffffff;
+  color: #555;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+
+/* Hover */
+
+.cart-info button:hover {
+  background: #f7f7f7;
+
+  border-color: #bbb;
+
+  color: #222;
+}
+
+
+/* ========================================
+   DIVIDER
+======================================== */
+
+.cart-container hr {
+  margin: 28px 0 20px;
+
+  border: none;
+
+  border-top: 1px solid #e1e4e8;
+}
+
+
+/* ========================================
+   TOTAL
+======================================== */
+
+.cart-container > h2 {
+  margin: 0;
+
+  font-size: 21px;
+  font-weight: 700;
+
+  color: #222;
+}
+
+
+/* ========================================
+   ORDER NOW BUTTON
+======================================== */
 
 .order-button {
   display: block;
+
   width: 100%;
+
+  box-sizing: border-box;
+
   margin-top: 20px;
-  padding: 14px;
+
+  padding: 14px 18px;
 
   background: #3880ff;
-  color: white;
+  color: #ffffff;
 
   text-align: center;
   text-decoration: none;
 
-  border-radius: 8px;
-  font-weight: bold;
+  border-radius: 10px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
+}
+
+
+/* Hover */
+
+.order-button:hover {
+  background: #3171e0;
+
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Click */
+
+.order-button:active {
+  transform: scale(0.98);
+}
+
+
+/* ========================================
+   EMPTY CART
+======================================== */
+
+.cart-container > p:last-child {
+  color: #777;
+}
+
+
+/* ========================================
+   MOBILE RESPONSIVE
+======================================== */
+
+@media (max-width: 500px) {
+
+  .cart-container {
+    padding: 20px 16px 32px;
+  }
+
+  .cart-row {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .cart-row img {
+    width: 90px;
+    height: 75px;
+  }
+
+  .cart-info h2 {
+    font-size: 15px;
+  }
+
+  .cart-info p {
+    font-size: 13px;
+  }
+
 }
