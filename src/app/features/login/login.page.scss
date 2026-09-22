@@ -1,0 +1,39 @@
+ion-content {
+  --background: #fbf7f2;
+}
+
+.login-container {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 32px 20px 40px;
+}
+
+.login-container h1 {
+  margin: 0 0 8px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 0 0 28px;
+  font-size: 14px;
+  color: var(--ion-color-medium);
+}
+
+.field {
+  margin-bottom: 14px;
+  --border-radius: 10px;
+}
+
+.submit-button {
+  margin-top: 12px;
+  --border-radius: 10px;
+  height: 48px;
+  font-weight: 600;
+}
+
+.hint {
+  margin-top: 24px;
+  font-size: 13px;
+  text-align: center;
+}

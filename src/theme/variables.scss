@@ -1,2 +1,104 @@
+// CampusEats — "Soft Terracotta" theme
+//
+// A muted, modern warm-neutral palette: dusty clay-orange primary, sage
+// green accent, soft cream background, warm brown-gray text instead of
+// black. Deliberately desaturated/soft rather than vivid, per request.
+// Every text/background pairing below was checked for at least 4.5:1
+// contrast (WCAG AA, normal-size text) — see the comment next to each.
+// Where the exact requested swatch was too light/mid-tone to pass on its
+// own (common with muted mid-tone colors), the *contrast* color was
+// deepened rather than watering down the swatch itself, so the brand hues
+// stay true to what was picked.
+//
 // For information on how to create your own theme, please refer to:
 // https://ionicframework.com/docs/theming/
+
+:root {
+
+  /** primary — muted terracotta / clay. Its own contrast text is a deep
+   * warm brown (not white/black) — white-on-this-terracotta only reaches
+   * ~3.1:1, this brown reaches ~5.5:1. */
+  --ion-color-primary: #d97757;
+  --ion-color-primary-rgb: 217, 119, 87;
+  --ion-color-primary-contrast: #241d17;
+  --ion-color-primary-contrast-rgb: 36, 29, 23;
+  --ion-color-primary-shade: #bf694d;
+  --ion-color-primary-tint: #dd8568;
+
+  /** secondary — sage green, the app's accent. Deepened slightly from the
+   * softest sage swatch so it still reads clearly at chip/text sizes
+   * (~4.9:1 as text on white, vs ~2.7:1 for the paler swatch). */
+  --ion-color-secondary: #4f7a5c;
+  --ion-color-secondary-rgb: 79, 122, 92;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #466b51;
+  --ion-color-secondary-tint: #61876c;
+
+  --ion-color-tertiary: #4f7a5c;
+  --ion-color-tertiary-rgb: 79, 122, 92;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade: #466b51;
+  --ion-color-tertiary-tint: #61876c;
+
+  /** success — same sage green as the accent, so "Available" reads as
+   * part of the same palette. ~4.9:1 as text on a white/cream chip. */
+  --ion-color-success: #4f7a5c;
+  --ion-color-success-rgb: 79, 122, 92;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #466b51;
+  --ion-color-success-tint: #61876c;
+
+  /** warning — "preparing" status: warm gold. Dark text reaches ~7.4:1. */
+  --ion-color-warning: #d8a23d;
+  --ion-color-warning-rgb: 216, 162, 61;
+  --ion-color-warning-contrast: #241d17;
+  --ion-color-warning-contrast-rgb: 36, 29, 23;
+  --ion-color-warning-shade: #bd8d34;
+  --ion-color-warning-tint: #dcac50;
+
+  /** danger — cancel / remove actions: brick red, clearly distinct from
+   * the terracotta primary. White text reaches ~5.4:1. */
+  --ion-color-danger: #b14a3d;
+  --ion-color-danger-rgb: 177, 74, 61;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #9c4136;
+  --ion-color-danger-tint: #b95d51;
+
+  /** medium — secondary text, sold-out status, muted labels. A warm
+   * taupe-gray, softer than a cool gray, reaching ~4.8:1 on white. */
+  --ion-color-medium: #79706a;
+  --ion-color-medium-rgb: 121, 112, 106;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade: #6a625c;
+  --ion-color-medium-tint: #877e78;
+
+  --ion-color-dark: #241d17;
+  --ion-color-dark-rgb: 36, 29, 23;
+  --ion-color-dark-contrast: #ffffff;
+  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-shade: #201a15;
+  --ion-color-dark-tint: #3a332e;
+
+  --ion-color-light: #fbf7f2;
+  --ion-color-light-rgb: 251, 247, 242;
+  --ion-color-light-contrast: #3a322c;
+  --ion-color-light-contrast-rgb: 58, 50, 44;
+  --ion-color-light-shade: #dddad5;
+  --ion-color-light-tint: #fbf8f4;
+
+  /** App-wide neutrals: soft cream page background, warm brown-gray text
+   * (never pure black), clean white toolbars/cards for separation. */
+  --ion-background-color: #fbf7f2;
+  --ion-background-color-rgb: 251, 247, 242;
+  --ion-text-color: #3a322c;
+  --ion-text-color-rgb: 58, 50, 44;
+
+  --ion-toolbar-background: #ffffff;
+  --ion-toolbar-color: #3a322c;
+  --ion-item-background: #ffffff;
+}

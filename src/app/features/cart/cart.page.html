@@ -1,6 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>CampusEats Cart</ion-title>
+    <ion-title>Your Cart</ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        routerLink="/tabs/orders"
+        aria-label="Go to place order"
+      >
+        <ion-icon slot="icon-only" name="receipt-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -8,21 +16,19 @@
 
   <div class="cart-container">
 
-    <h1>Your Cart</h1>
-
-    <h2>
-      Items: {{ count() }}
-    </h2>
-
-    <h2>
-      Total: PHP {{ total() }}
-    </h2>
-
     @if (lines().length === 0) {
 
-      <p>Your cart is empty.</p>
+      <app-empty-state
+        icon="cart-outline"
+        title="Your cart is empty"
+        message="Add dishes from the menu to get started."
+      ></app-empty-state>
 
     } @else {
+
+      <p class="item-count">
+        {{ count() }} {{ count() === 1 ? 'item' : 'items' }}
+      </p>
 
       @for (line of lines(); track line.item.id) {
 
@@ -39,44 +45,59 @@
               {{ line.item.emoji }} {{ line.item.name }}
             </h2>
 
-            <p>
-              Price: PHP {{ line.item.price }}
+            <p class="unit-price">
+              PHP {{ line.item.price }} each
             </p>
 
-            <p>
-              Quantity: {{ line.quantity }}
-            </p>
+            <div class="qty-row">
 
-            <p>
-              Subtotal:
-              PHP {{ line.item.price * line.quantity }}
-            </p>
+              <div class="stepper">
+                <ion-button
+                  fill="clear"
+                  size="small"
+                  (click)="cart.remove(line.item.id)"
+                  [attr.aria-label]="'Decrease quantity of ' + line.item.name"
+                >
+                  <ion-icon slot="icon-only" name="remove-outline"></ion-icon>
+                </ion-button>
 
-            <button
-              (click)="cart.remove(line.item.id)"
-            >
-              Remove
-            </button>
+                <span class="qty" aria-live="polite">{{ line.quantity }}</span>
 
+                <ion-button
+                  fill="clear"
+                  size="small"
+                  (click)="cart.add(line.item)"
+                  [attr.aria-label]="'Increase quantity of ' + line.item.name"
+                >
+                  <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+                </ion-button>
+              </div>
 
-            <hr />
+              <span class="subtotal">
+                PHP {{ line.item.price * line.quantity }}
+              </span>
 
-            <h2>
-              Total: PHP {{ total() }}
-            </h2>
-
-            <a
-              routerLink="/orders"
-              class="order-button"
-            >
-              Order Now
-            </a>
+            </div>
 
           </div>
 
         </div>
 
       }
+
+      <div class="summary">
+        <span>Total</span>
+        <span class="total-amount">PHP {{ total() }}</span>
+      </div>
+
+      <ion-button
+        expand="block"
+        routerLink="/tabs/orders"
+        class="order-button"
+      >
+        <ion-icon slot="start" name="receipt-outline"></ion-icon>
+        Order Now
+      </ion-button>
 
     }
 

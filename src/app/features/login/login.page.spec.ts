@@ -3,15 +3,15 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 
-import { OrderPage } from './orders.page';
+import { LoginPage } from './login.page';
 
-describe('OrderPage', () => {
-  let component: OrderPage;
-  let fixture: ComponentFixture<OrderPage>;
+describe('LoginPage', () => {
+  let component: LoginPage;
+  let fixture: ComponentFixture<LoginPage>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [OrderPage],
+      imports: [LoginPage],
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
@@ -19,7 +19,7 @@ describe('OrderPage', () => {
       ],
     });
 
-    fixture = TestBed.createComponent(OrderPage);
+    fixture = TestBed.createComponent(LoginPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

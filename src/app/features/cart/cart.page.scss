@@ -1,263 +1,115 @@
-/* ========================================
-   MAIN PAGE BACKGROUND
-======================================== */
-
 ion-content {
-  --background: #ffffff;
+  --background: #fbf7f2;
 }
-
-
-/* ========================================
-   CART CONTAINER
-======================================== */
 
 .cart-container {
   max-width: 700px;
   margin: 0 auto;
-  padding: 24px 20px 40px;
-
-  background: #ffffff;
+  padding: 16px 16px 32px;
 }
 
-
-/* ========================================
-   PAGE TITLE
-======================================== */
-
-.cart-container h1 {
-  margin: 0 0 20px;
-
-  font-size: 28px;
-  font-weight: 700;
-
-  color: #222;
+.item-count {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--ion-color-medium);
 }
-
-
-/* ========================================
-   CART SUMMARY
-======================================== */
-
-.cart-container > p {
-  margin: 6px 0;
-
-  font-size: 15px;
-  color: #555;
-}
-
-
-/* ========================================
-   CART ITEM
-======================================== */
 
 .cart-row {
   display: flex;
-  gap: 16px;
+  gap: 14px;
 
-  margin-top: 18px;
-  padding: 16px;
+  margin-bottom: 14px;
+  padding: 14px;
 
   background: #ffffff;
-
   border: 1px solid #e1e4e8;
   border-radius: 12px;
-
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
-
-/* ========================================
-   FOOD IMAGE
-======================================== */
-
 .cart-row img {
-  width: 110px;
-  height: 90px;
-
+  width: 88px;
+  height: 88px;
   object-fit: cover;
-
   border-radius: 8px;
+  flex-shrink: 0;
 }
-
-
-/* ========================================
-   CART INFORMATION
-======================================== */
 
 .cart-info {
   flex: 1;
+  min-width: 0;
 }
-
 
 .cart-info h2 {
-  margin: 0 0 8px;
-
-  font-size: 17px;
-  font-weight: 600;
-
-  color: #222;
-}
-
-
-.cart-info p {
-  margin: 5px 0;
-
-  font-size: 14px;
-  color: #555;
-}
-
-
-/* ========================================
-   REMOVE BUTTON
-======================================== */
-
-.cart-info button {
-  margin-top: 10px;
-
-  padding: 7px 12px;
-
-  border: 1px solid #d5d9df;
-  border-radius: 7px;
-
-  background: #ffffff;
-  color: #555;
-
-  font-size: 13px;
-  font-weight: 500;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
-}
-
-
-/* Hover */
-
-.cart-info button:hover {
-  background: #f7f7f7;
-
-  border-color: #bbb;
-
-  color: #222;
-}
-
-
-/* ========================================
-   DIVIDER
-======================================== */
-
-.cart-container hr {
-  margin: 28px 0 20px;
-
-  border: none;
-
-  border-top: 1px solid #e1e4e8;
-}
-
-
-/* ========================================
-   TOTAL
-======================================== */
-
-.cart-container > h2 {
-  margin: 0;
-
-  font-size: 21px;
-  font-weight: 700;
-
-  color: #222;
-}
-
-
-/* ========================================
-   ORDER NOW BUTTON
-======================================== */
-
-.order-button {
-  display: block;
-
-  width: 100%;
-
-  box-sizing: border-box;
-
-  margin-top: 20px;
-
-  padding: 14px 18px;
-
-  background: #3880ff;
-  color: #ffffff;
-
-  text-align: center;
-  text-decoration: none;
-
-  border-radius: 10px;
-
+  margin: 0 0 4px;
   font-size: 16px;
   font-weight: 600;
-
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
-
-  transition:
-    background 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.1s ease;
 }
 
-
-/* Hover */
-
-.order-button:hover {
-  background: #3171e0;
-
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
+.unit-price {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--ion-color-medium);
 }
 
-
-/* Click */
-
-.order-button:active {
-  transform: scale(0.98);
+.qty-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-
-/* ========================================
-   EMPTY CART
-======================================== */
-
-.cart-container > p:last-child {
-  color: #777;
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
+.stepper ion-button {
+  --padding-start: 6px;
+  --padding-end: 6px;
+  margin: 0;
+  height: 32px;
+}
 
-/* ========================================
-   MOBILE RESPONSIVE
-======================================== */
+.qty {
+  min-width: 22px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.subtotal {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e1e4e8;
+
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.order-button {
+  margin-top: 16px;
+  --border-radius: 10px;
+  height: 48px;
+  font-weight: 600;
+}
 
 @media (max-width: 500px) {
-
   .cart-container {
-    padding: 20px 16px 32px;
-  }
-
-  .cart-row {
-    gap: 12px;
-    padding: 12px;
+    padding: 12px 12px 28px;
   }
 
   .cart-row img {
-    width: 90px;
-    height: 75px;
+    width: 72px;
+    height: 72px;
   }
-
-  .cart-info h2 {
-    font-size: 15px;
-  }
-
-  .cart-info p {
-    font-size: 13px;
-  }
-
 }

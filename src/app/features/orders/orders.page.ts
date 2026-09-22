@@ -1,15 +1,36 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Haptics, NotificationType } from '@capacitor/haptics';
 
 import {
   IonHeader,
   IonToolbar,
   IonTitle,
   IonContent,
+  IonButtons,
+  IonButton,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonInput,
+  IonTextarea,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonChip,
+  LoadingController,
+  ToastController,
 } from '@ionic/angular';
 
 import { OrderService } from '../../core/services/order.service';
 import { CartService } from '../../core/services/cart.service';
+import { AuthService } from '../../core/services/auth.service';
+import { Order, OrderStatus } from '../../core/models/order.model';
+import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
+import { ErrorStateComponent } from '../../shared/components/error-state/error-state.component';
+
+const UNDO_WINDOW_MS = 4000;
 
 @Component({
   selector: 'app-order',
@@ -19,7 +40,20 @@ import { CartService } from '../../core/services/cart.service';
     IonToolbar,
     IonTitle,
     IonContent,
+    IonButtons,
+    IonButton,
+    IonIcon,
+    IonItem,
+    IonLabel,
+    IonInput,
+    IonTextarea,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonChip,
     FormsModule,
+    EmptyStateComponent,
+    ErrorStateComponent,
   ],
   templateUrl: './orders.page.html',
   styleUrl: './orders.page.scss',
@@ -29,6 +63,12 @@ export class OrderPage implements OnInit {
   readonly orderService = inject(OrderService);
 
   readonly cart = inject(CartService);
+
+  readonly auth = inject(AuthService);
+
+  private router = inject(Router);
+  private loadingCtrl = inject(LoadingController);
+  private toastCtrl = inject(ToastController);
 
   readonly orders = this.orderService.all;
 
@@ -48,11 +88,11 @@ export class OrderPage implements OnInit {
 
   }
 
-  placeOrder(): void {
+  async placeOrder(): Promise<void> {
 
     if (!this.customerName || !this.roomOrStall) {
 
-      alert('Please enter your name and room/stall.');
+      this.showToast('Please enter your name and room/stall.', 'warning');
 
       return;
 
@@ -60,7 +100,7 @@ export class OrderPage implements OnInit {
 
     if (this.cart.all().length === 0) {
 
-      alert('Your cart is empty.');
+      this.showToast('Your cart is empty.', 'warning');
 
       return;
 
@@ -84,17 +124,112 @@ export class OrderPage implements OnInit {
 
     };
 
-    this.orderService.create(order);
+    const loading = await this.loadingCtrl.create({
+      message: 'Placing your order…',
+    });
 
-    alert('Order placed successfully!');
+    await loading.present();
 
-    this.customerName = '';
+    try {
 
-    this.roomOrStall = '';
+      const created = await this.orderService.create(order);
 
-    this.notes = '';
+      this.customerName = '';
+      this.roomOrStall = '';
+      this.notes = '';
+      this.cart.clear();
 
-    this.cart.clear();
+      await this.showToast(
+        `Order ${created.reference} placed successfully.`,
+        'success'
+      );
 
+      // Subtle confirmation on the one moment that matters most: a
+      // successful order. Silently no-ops on platforms/browsers without
+      // haptics support.
+      Haptics.notification({ type: NotificationType.Success }).catch(
+        () => undefined
+      );
+
+    } catch {
+
+      await this.showToast('Could not reach the canteen.', 'danger');
+
+    } finally {
+
+      await loading.dismiss();
+
+    }
+
+  }
+
+  async cancelOrder(order: Order): Promise<void> {
+
+    const removed = this.orderService.removeLocally(order.id);
+
+    if (!removed) {
+      return;
+    }
+
+    let undone = false;
+
+    const toast = await this.toastCtrl.create({
+      message: `Order ${removed.reference} cancelled.`,
+      duration: UNDO_WINDOW_MS,
+      position: 'bottom',
+      buttons: [
+        {
+          text: 'Undo',
+          handler: () => {
+            undone = true;
+            this.orderService.restoreLocally(removed);
+          },
+        },
+      ],
+    });
+
+    await toast.present();
+    await toast.onDidDismiss();
+
+    if (!undone) {
+      this.orderService.cancel(removed.id);
+    }
+
+  }
+
+  logout(): void {
+    this.auth.logout();
+    this.router.navigateByUrl('/tabs/menu');
+  }
+
+  statusColor(status: OrderStatus): string {
+    switch (status) {
+      case 'pending':
+        return 'medium';
+      case 'preparing':
+        return 'warning';
+      case 'ready':
+        return 'success';
+      case 'delivered':
+        return 'primary';
+      case 'cancelled':
+        return 'danger';
+      default:
+        return 'medium';
+    }
+  }
+
+  private async showToast(
+    message: string,
+    color: 'success' | 'warning' | 'danger'
+  ): Promise<void> {
+    const toast = await this.toastCtrl.create({
+      message,
+      duration: 3000,
+      color,
+      position: 'bottom',
+    });
+
+    await toast.present();
   }
 }

@@ -34,4 +34,32 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+/* @import "@ionic/angular/css/palettes/dark.system.css"; */
+/* CampusEats ships one deliberate light theme (see theme/variables.scss) —
+ * dark.system.css auto-swaps toolbars/cards to Ionic's own dark tokens
+ * whenever the OS is in dark mode, which fights that palette instead of
+ * complementing it, so it's left off rather than patched around. */
+
+/**
+ * A few app-wide interaction defaults, kept small on purpose.
+ */
+
+/* Consistent, quick transitions (~200-250ms) instead of ad-hoc timings. */
+ion-button,
+ion-card,
+ion-item,
+ion-chip {
+  --transition: 0.2s ease;
+}
+
+/* Respect the user's reduced-motion preference everywhere. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

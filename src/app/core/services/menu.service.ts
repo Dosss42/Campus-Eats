@@ -1,6 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { environment } from '../../../environments/environment';
 import { MenuItem } from '../models/menu-item.model';
 
 @Injectable({
@@ -9,7 +10,7 @@ import { MenuItem } from '../models/menu-item.model';
 export class MenuService {
   private http = inject(HttpClient);
 
-  private api = 'http://localhost:8000/api';
+  private api = environment.apiUrl;
 
   private items = signal<MenuItem[]>([]);
   private busy = signal(false);
@@ -23,16 +24,18 @@ export class MenuService {
     this.busy.set(true);
     this.failed.set(false);
 
-    this.http.get<MenuItem[]>(`${this.api}/menu`).subscribe({
-      next: (list) => {
-        this.items.set(list);
-        this.busy.set(false);
-      },
+    this.http
+      .get<MenuItem[]>(`${this.api}/menu${environment.simulate}`)
+      .subscribe({
+        next: (list) => {
+          this.items.set(list);
+          this.busy.set(false);
+        },
 
-      error: () => {
-        this.failed.set(true);
-        this.busy.set(false);
-      },
-    });
+        error: () => {
+          this.failed.set(true);
+          this.busy.set(false);
+        },
+      });
   }
 }

@@ -5,11 +5,15 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
+  IonButtons,
+  IonButton,
+  IonIcon,
 } from '@ionic/angular';
 
 import { RouterLink } from '@angular/router';
 
 import { CartService } from '../../core/services/cart.service';
+import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
 
 @Component({
   selector: 'app-cart',
@@ -19,7 +23,11 @@ import { CartService } from '../../core/services/cart.service';
     IonHeader,
     IonTitle,
     IonToolbar,
+    IonButtons,
+    IonButton,
+    IonIcon,
     RouterLink,
+    EmptyStateComponent,
   ],
   templateUrl: './cart.page.html',
   styleUrl: './cart.page.scss',

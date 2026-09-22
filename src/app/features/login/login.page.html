@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Sign In</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="login-container">
+
+    <h1>Sign in to CampusEats</h1>
+
+    <p class="subtitle">
+      Orders are only visible to signed-in students.
+    </p>
+
+    <form (ngSubmit)="signIn()">
+
+      <ion-item lines="full" class="field">
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input
+          type="email"
+          inputmode="email"
+          autocomplete="email"
+          [(ngModel)]="email"
+          name="email"
+          placeholder="student@campus.edu"
+          [attr.aria-label]="'Email'"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item lines="full" class="field">
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input
+          type="password"
+          autocomplete="current-password"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Password"
+          [attr.aria-label]="'Password'"
+        ></ion-input>
+      </ion-item>
+
+      <ion-button
+        expand="block"
+        type="submit"
+        class="submit-button"
+        [disabled]="submitting()"
+      >
+        <ion-icon slot="start" name="log-in-outline"></ion-icon>
+        {{ submitting() ? 'Signing in…' : 'Sign In' }}
+      </ion-button>
+
+    </form>
+
+    <ion-text color="medium">
+      <p class="hint">
+        Demo account: <strong>student&#64;campus.edu</strong> / password
+        <strong>ionic123</strong>
+      </p>
+    </ion-text>
+
+  </div>
+
+</ion-content>

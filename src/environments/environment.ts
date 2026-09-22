@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: 'http://localhost:8000/api',
+  // Append to any request while testing, e.g. '?delay=1500' or '?fail=true'.
+  // See campuseats-api/API_REFERENCE.md → "Testing loading and error states".
+  simulate: '',
 };
 
 /*

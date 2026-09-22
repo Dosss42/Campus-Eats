@@ -1,0 +1,77 @@
+<ion-split-pane contentId="main-content" when="md">
+
+  <!-- Wide-screen side navigation. Hidden by default; ion-split-pane shows
+       it as a permanent sidebar once the viewport reaches the "md" breakpoint. -->
+  <ion-menu contentId="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>CampusEats</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list lines="none">
+
+        <ion-item
+          button
+          detail="false"
+          routerLink="/tabs/menu"
+          routerLinkActive="nav-selected"
+        >
+          <ion-icon slot="start" name="restaurant-outline"></ion-icon>
+          <ion-label>Menu</ion-label>
+        </ion-item>
+
+        <ion-item
+          button
+          detail="false"
+          routerLink="/tabs/cart"
+          routerLinkActive="nav-selected"
+        >
+          <ion-icon slot="start" name="cart-outline"></ion-icon>
+          <ion-label>Cart</ion-label>
+          @if (cart.count() > 0) {
+            <ion-badge slot="end" color="danger">{{ cart.count() }}</ion-badge>
+          }
+        </ion-item>
+
+        <ion-item
+          button
+          detail="false"
+          routerLink="/tabs/orders"
+          routerLinkActive="nav-selected"
+        >
+          <ion-icon slot="start" name="receipt-outline"></ion-icon>
+          <ion-label>Orders</ion-label>
+        </ion-item>
+
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <!-- Mobile / narrow-screen navigation. -->
+  <ion-tabs id="main-content">
+    <ion-tab-bar slot="bottom">
+
+      <ion-tab-button tab="menu" href="/tabs/menu">
+        <ion-icon aria-hidden="true" name="restaurant-outline"></ion-icon>
+        <ion-label>Menu</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="cart" href="/tabs/cart">
+        <ion-icon aria-hidden="true" name="cart-outline"></ion-icon>
+        <ion-label>Cart</ion-label>
+        @if (cart.count() > 0) {
+          <ion-badge color="danger">{{ cart.count() }}</ion-badge>
+        }
+      </ion-tab-button>
+
+      <ion-tab-button tab="orders" href="/tabs/orders">
+        <ion-icon aria-hidden="true" name="receipt-outline"></ion-icon>
+        <ion-label>Orders</ion-label>
+      </ion-tab-button>
+
+    </ion-tab-bar>
+  </ion-tabs>
+
+</ion-split-pane>

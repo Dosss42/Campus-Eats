@@ -1,56 +1,101 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>CampusEats Menu</ion-title>
+    <ion-title>Menu</ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        routerLink="/tabs/cart"
+        aria-label="Go to cart"
+        class="cart-nav-button"
+      >
+        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+        @if (cart.count() > 0) {
+          <ion-badge color="danger">{{ cart.count() }}</ion-badge>
+        }
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-searchbar
+      placeholder="Search dishes"
+      [debounce]="200"
+      (ionInput)="onSearch($event.detail.value)"
+      aria-label="Search the menu"
+    ></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
-  <div class="menu-container">
+  <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
-    <h1>CampusEats Menu</h1>
+  <ion-grid [fixed]="true" class="menu-grid">
 
-    <p>
-      Cart Items: {{ cart.count() }}
-    </p>
+    @if (menu.loading() && menu.all().length === 0) {
 
-    <p>
-      Cart Total: PHP {{ cart.total() }}
-    </p>
-
-    <p>
-      {{ items().length }} dishes available
-    </p>
-
-    @if (menu.loading()) {
-
-      <p>Loading the menu...</p>
+      <ion-row>
+        @for (row of skeletonRows; track row) {
+          <ion-col size="12" size-md="6" size-lg="4">
+            <div class="skeleton-card">
+              <ion-skeleton-text
+                [animated]="true"
+                class="skeleton-image"
+              ></ion-skeleton-text>
+              <ion-skeleton-text
+                [animated]="true"
+                class="skeleton-title"
+              ></ion-skeleton-text>
+              <ion-skeleton-text
+                [animated]="true"
+                class="skeleton-line"
+              ></ion-skeleton-text>
+              <ion-skeleton-text
+                [animated]="true"
+                class="skeleton-button"
+              ></ion-skeleton-text>
+            </div>
+          </ion-col>
+        }
+      </ion-row>
 
     } @else if (menu.error()) {
 
-      <p>Could not reach the canteen.</p>
+      <app-error-state
+        message="We couldn't load the canteen menu."
+        (retry)="menu.load()"
+      ></app-error-state>
 
-      <button (click)="menu.load()">
-        Try again
-      </button>
+    } @else if (items().length === 0 && searchTerm()) {
+
+      <app-empty-state
+        title="No dishes found"
+        message="Try searching for something else."
+      ></app-empty-state>
+
+    } @else if (items().length === 0) {
+
+      <app-empty-state
+        title="No dishes available"
+        message="Check back later for the canteen's menu."
+      ></app-empty-state>
 
     } @else {
 
-      @for (item of items(); track item.id) {
-
-        <app-food-card
-          [item]="item"
-          (addToCart)="cart.add($event)"
-        ></app-food-card>
-
-      } @empty {
-
-        <p>No dishes available.</p>
-
-      }
+      <ion-row>
+        @for (item of items(); track item.id) {
+          <ion-col size="12" size-md="6" size-lg="4">
+            <app-food-card
+              [item]="item"
+              (addToCart)="cart.add($event)"
+            ></app-food-card>
+          </ion-col>
+        }
+      </ion-row>
 
     }
 
-  </div>
+  </ion-grid>
 
 </ion-content>

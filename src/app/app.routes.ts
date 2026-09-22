@@ -1,41 +1,56 @@
 import { Routes } from '@angular/router';
 
+import { authGuard } from './core/guards/auth.guard';
+
 export const routes: Routes = [
   {
-    path: 'home',
+    path: 'login',
     loadComponent: () =>
-      import('./home/home.page').then(
-        (m) => m.HomePage
-      ),
+      import('./features/login/login.page').then((m) => m.LoginPage),
   },
 
   {
-    path: 'menu',
+    path: 'tabs',
     loadComponent: () =>
-      import('./features/menu/menu.page').then(
-        (m) => m.MenuPage
-      ),
-  },
+      import('./tabs/tabs.page').then((m) => m.TabsPage),
+    children: [
+      {
+        path: 'menu',
+        loadComponent: () =>
+          import('./features/menu/menu.page').then((m) => m.MenuPage),
+      },
 
-  {
-    path: 'cart',
-    loadComponent: () =>
-      import('./features/cart/cart.page').then(
-        (m) => m.CartPage
-      ),
-  },
+      {
+        path: 'cart',
+        loadComponent: () =>
+          import('./features/cart/cart.page').then((m) => m.CartPage),
+      },
 
-  {
-    path: 'orders',
-    loadComponent: () =>
-      import('./features/orders/orders.page').then(
-        (m) => m.OrderPage
-      ),
+      {
+        path: 'orders',
+        loadComponent: () =>
+          import('./features/orders/orders.page').then(
+            (m) => m.OrderPage
+          ),
+        canActivate: [authGuard],
+      },
+
+      {
+        path: '',
+        redirectTo: 'menu',
+        pathMatch: 'full',
+      },
+    ],
   },
 
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'tabs/menu',
     pathMatch: 'full',
+  },
+
+  {
+    path: '**',
+    redirectTo: 'tabs/menu',
   },
 ];

@@ -1,0 +1,17 @@
+// The side menu duplicates the tab bar for wider screens (ion-split-pane
+// shows it starting at the "md" breakpoint, ~768px). Hide the bottom tab
+// bar at the same breakpoint so navigation isn't shown twice.
+@media (min-width: 768px) {
+  ion-tab-bar {
+    display: none;
+  }
+}
+
+ion-menu {
+  --width: 240px;
+
+  ion-item.nav-selected {
+    --color: var(--ion-color-primary);
+    font-weight: 600;
+  }
+}

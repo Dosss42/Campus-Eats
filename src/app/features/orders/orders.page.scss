@@ -1,237 +1,96 @@
-/* ========================================
-   MAIN PAGE BACKGROUND
-======================================== */
-
 ion-content {
-  --background: #ffffff;
+  --background: #fbf7f2;
 }
-
-
-/* ========================================
-   ORDER CONTAINER
-======================================== */
 
 .order-container {
-  max-width: 700px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 24px 20px 40px;
-
-  background: #ffffff;
+  padding: 16px 16px 40px;
 }
 
-
-/* ========================================
-   PAGE TITLE
-======================================== */
-
-.order-container h1 {
-  margin: 0 0 24px;
-
-  font-size: 28px;
+.place-order h1 {
+  margin: 0 0 18px;
+  font-size: 24px;
   font-weight: 700;
-
-  color: #222;
 }
 
-
-/* ========================================
-   FORM LABELS
-======================================== */
-
-.order-container label {
-  display: block;
-
-  margin-top: 18px;
-  margin-bottom: 8px;
-
-  font-size: 14px;
-  font-weight: 600;
-
-  color: #333;
+.field {
+  margin-bottom: 12px;
+  --border-radius: 10px;
 }
 
-
-/* ========================================
-   INPUTS & TEXTAREA
-======================================== */
-
-.order-container input,
-.order-container textarea {
-  width: 100%;
-  box-sizing: border-box;
-
-  padding: 13px 15px;
-
-  background: #ffffff;
-  color: #222;
-
-  border: 1px solid #cfd4dc;
-  border-radius: 10px;
-
-  font-size: 15px;
-
-  outline: none;
-
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-
-/* ========================================
-   CUSTOMER NAME & ROOM INPUT
-======================================== */
-
-.order-container input {
+.place-button {
+  margin-top: 8px;
+  --border-radius: 10px;
   height: 48px;
-}
-
-
-/* ========================================
-   NOTES TEXTAREA
-======================================== */
-
-.order-container textarea {
-  min-height: 110px;
-
-  resize: vertical;
-
-  font-family: inherit;
-}
-
-
-/* ========================================
-   PLACEHOLDER TEXT
-======================================== */
-
-.order-container input::placeholder,
-.order-container textarea::placeholder {
-  color: #9aa1ad;
-}
-
-
-/* ========================================
-   INPUT FOCUS
-======================================== */
-
-.order-container input:focus,
-.order-container textarea:focus {
-  background: #ffffff;
-
-  border-color: #3880ff;
-
-  box-shadow: 0 0 0 3px rgba(56, 128, 255, 0.12);
-}
-
-
-/* ========================================
-   PLACE ORDER BUTTON
-======================================== */
-
-.order-container > button {
-  width: 100%;
-
-  margin-top: 24px;
-  padding: 14px 18px;
-
-  border: none;
-  border-radius: 10px;
-
-  background: #3880ff;
-  color: #ffffff;
-
-  font-size: 16px;
   font-weight: 600;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    transform 0.1s ease;
 }
 
-
-/* Button hover */
-
-.order-container > button:hover {
-  background: #3171e0;
+.existing-orders {
+  margin-top: 36px;
 }
 
-
-/* Button click */
-
-.order-container > button:active {
-  transform: scale(0.98);
-}
-
-
-/* ========================================
-   DIVIDER
-======================================== */
-
-.order-container hr {
-  margin: 32px 0;
-
-  border: none;
-
-  border-top: 1px solid #e1e4e8;
-}
-
-
-/* ========================================
-   EXISTING ORDERS TITLE
-======================================== */
-
-.order-container h2 {
-  margin-bottom: 16px;
-
-  font-size: 22px;
+.existing-orders h2 {
+  margin: 0 0 16px;
+  font-size: 19px;
   font-weight: 700;
-
-  color: #222;
 }
 
+.loading-text {
+  color: var(--ion-color-medium);
+}
 
-/* ========================================
-   ORDER CARD
-======================================== */
+.orders-grid {
+  padding: 0;
+}
 
 .order-card {
-  padding: 18px;
-  margin-bottom: 14px;
+  height: 100%;
+  box-sizing: border-box;
+
+  padding: 16px;
+  margin-bottom: 4px;
 
   background: #ffffff;
-
   border: 1px solid #e1e4e8;
   border-radius: 12px;
-
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
-
-/* ========================================
-   ORDER REFERENCE
-======================================== */
-
-.order-card h3 {
-  margin-top: 0;
-  margin-bottom: 12px;
-
-  font-size: 18px;
-  font-weight: 700;
-
-  color: #3880ff;
+.order-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
 }
 
+.order-card h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ion-color-primary);
+}
 
-/* ========================================
-   ORDER DETAILS
-======================================== */
+.status-chip {
+  margin: 0;
+  text-transform: capitalize;
+  font-size: 12px;
+  font-weight: 600;
+}
 
 .order-card p {
-  margin: 6px 0;
-
-  color: #555;
-
+  margin: 4px 0;
   font-size: 14px;
+  color: var(--ion-color-medium);
+}
+
+.order-card .total {
+  font-weight: 700;
+  color: var(--ion-text-color, #3a322c);
+}
+
+.cancel-button {
+  margin-top: 6px;
+  margin-left: -10px;
 }

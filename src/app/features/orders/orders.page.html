@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>CampusEats Orders</ion-title>
+    <ion-title>Orders</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()" aria-label="Log out">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -8,97 +13,116 @@
 
   <div class="order-container">
 
-    <h1>Place Order</h1>
+    <section class="place-order">
 
-    <label for="customerName">
-      Customer Name
-    </label>
+      <h1>Place an Order</h1>
 
-    <input
-      id="customerName"
-      type="text"
-      [(ngModel)]="customerName"
-      placeholder="Enter your name"
-    />
+      <ion-item lines="full" class="field">
+        <ion-label position="stacked">Customer Name</ion-label>
+        <ion-input
+          [(ngModel)]="customerName"
+          name="customerName"
+          placeholder="Enter your name"
+        ></ion-input>
+      </ion-item>
 
-    <label for="roomOrStall">
-      Room / Stall
-    </label>
+      <ion-item lines="full" class="field">
+        <ion-label position="stacked">Room / Stall</ion-label>
+        <ion-input
+          [(ngModel)]="roomOrStall"
+          name="roomOrStall"
+          placeholder="Example: Room 201"
+        ></ion-input>
+      </ion-item>
 
-    <input
-      id="roomOrStall"
-      type="text"
-      [(ngModel)]="roomOrStall"
-      placeholder="Example: Room 201"
-    />
+      <ion-item lines="full" class="field">
+        <ion-label position="stacked">Notes</ion-label>
+        <ion-textarea
+          [(ngModel)]="notes"
+          name="notes"
+          placeholder="Optional notes"
+          autoGrow="true"
+        ></ion-textarea>
+      </ion-item>
 
-    <label for="notes">
-      Notes
-    </label>
+      <ion-button
+        expand="block"
+        class="place-button"
+        (click)="placeOrder()"
+      >
+        <ion-icon slot="start" name="receipt-outline"></ion-icon>
+        Place Order · PHP {{ cart.total() }}
+      </ion-button>
 
-    <textarea
-      id="notes"
-      [(ngModel)]="notes"
-      placeholder="Optional notes"
-    ></textarea>
+    </section>
 
-    <button
-      (click)="placeOrder()"
-    >
-      Place Order
-    </button>
+    <section class="existing-orders">
 
-    <hr>
+      <h2>Your Orders</h2>
 
-    <h2>Existing Orders</h2>
+      @if (loading() && orders().length === 0) {
 
-    @if (loading()) {
+        <p class="loading-text">Loading orders…</p>
 
-      <p>Loading orders...</p>
+      } @else if (error() && orders().length === 0) {
 
-    } @else if (error()) {
+        <app-error-state
+          message="We couldn't load your orders."
+          (retry)="orderService.load()"
+        ></app-error-state>
 
-      <p>Could not load orders.</p>
+      } @else if (orders().length === 0) {
 
-      <button (click)="orderService.load()">
-        Try again
-      </button>
+        <app-empty-state
+          icon="receipt-outline"
+          title="No orders yet"
+          message="Orders you place will show up here."
+        ></app-empty-state>
 
-    } @else {
+      } @else {
 
-      @for (order of orders(); track order.id) {
+        <ion-grid [fixed]="true" class="orders-grid">
+          <ion-row>
 
-        <div class="order-card">
+            @for (order of orders(); track order.id) {
 
-          <h3>
-            {{ order.reference }}
-          </h3>
+              <ion-col size="12" size-md="6" size-lg="4">
+                <div class="order-card">
 
-          <p>
-            Customer: {{ order.customerName }}
-          </p>
+                  <div class="order-card-top">
+                    <h3>{{ order.reference }}</h3>
+                    <ion-chip [color]="statusColor(order.status)" class="status-chip">
+                      {{ order.status }}
+                    </ion-chip>
+                  </div>
 
-          <p>
-            Location: {{ order.roomOrStall }}
-          </p>
+                  <p>{{ order.customerName }} · {{ order.roomOrStall }}</p>
+                  <p class="total">PHP {{ order.total }}</p>
 
-          <p>
-            Status: {{ order.status }}
-          </p>
+                  @if (order.status === 'pending') {
+                    <ion-button
+                      fill="clear"
+                      color="danger"
+                      size="small"
+                      class="cancel-button"
+                      (click)="cancelOrder(order)"
+                      [attr.aria-label]="'Cancel order ' + order.reference"
+                    >
+                      Cancel Order
+                    </ion-button>
+                  }
 
-          <p>
-            Total: PHP {{ order.total }}
-          </p>
+                </div>
+              </ion-col>
 
-        </div>
+            }
 
-      } @empty {
-
-        <p>No orders yet.</p>
+          </ion-row>
+        </ion-grid>
 
       }
 
-    }
+    </section>
 
   </div>
 
