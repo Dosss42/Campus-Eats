@@ -1,0 +1,71 @@
+// CampusEats — design tokens
+//
+// A small, disciplined set of tokens so every screen draws from the same
+// type scale, radius scale and shadow — instead of each page inventing its
+// own font-size/radius/shadow. Informed by Apple's typography guidance
+// (WWDC 2020, "The Details of UI Typography"): tracking is size-specific
+// (tighter as text gets larger, ~0 at body size), and leading loosens as
+// size shrinks so small text stays readable.
+
+:root {
+
+  /** Type scale — five steps, each with a matched line-height and
+   * letter-spacing. Every component below references these instead of a
+   * literal font-size, so the whole app shares one scale. */
+
+  /* Title — page/section headings ("Sign In", "Your Orders") */
+  --ce-text-title-size: 1.25rem;      /* 20px */
+  --ce-text-title-leading: 1.2;
+  --ce-text-title-tracking: -0.015em;
+  --ce-text-title-weight: 700;
+
+  /* Headline — card/item titles (dish name, order reference) */
+  --ce-text-headline-size: 1.0625rem; /* 17px */
+  --ce-text-headline-leading: 1.3;
+  --ce-text-headline-tracking: -0.01em;
+  --ce-text-headline-weight: 600;
+
+  /* Body — default text (descriptions, labels, inputs) */
+  --ce-text-body-size: 0.9375rem;     /* 15px */
+  --ce-text-body-leading: 1.45;
+  --ce-text-body-tracking: 0em;
+  --ce-text-body-weight: 400;
+
+  /* Footnote — secondary/muted text (ratings, hints, unit prices) */
+  --ce-text-footnote-size: 0.8125rem; /* 13px */
+  --ce-text-footnote-leading: 1.4;
+  --ce-text-footnote-tracking: 0.005em;
+  --ce-text-footnote-weight: 400;
+
+  /* Caption — smallest UI text (status chips, badges) */
+  --ce-text-caption-size: 0.75rem;    /* 12px */
+  --ce-text-caption-leading: 1.3;
+  --ce-text-caption-tracking: 0.01em;
+  --ce-text-caption-weight: 600;
+
+  /** Radius scale — controls vs. surfaces, used everywhere instead of ad
+   * hoc 8/10/12px values. */
+  --ce-radius-control: 10px; /* buttons, inputs, chips */
+  --ce-radius-card: 14px;    /* cards, rows, sheets */
+
+  /** One soft, diffuse elevation shadow for every card-like surface —
+   * two thin layers (contact + ambient) instead of a single hard drop
+   * shadow, so surfaces read as gently lifted rather than boxed. */
+  --ce-shadow-card:
+    0 1px 2px rgba(43, 36, 32, 0.05),
+    0 8px 20px -6px rgba(43, 36, 32, 0.12);
+}
+
+// Every component below references these five text roles with the same
+// three properties, e.g.:
+//
+//   ion-card-title {
+//     font-size: var(--ce-text-headline-size);
+//     line-height: var(--ce-text-headline-leading);
+//     letter-spacing: var(--ce-text-headline-tracking);
+//     font-weight: var(--ce-text-headline-weight);
+//   }
+//
+// Custom properties inherit through Ionic's shadow-DOM components the same
+// way --ion-color-* already does, so this file only needs to be loaded
+// once globally (see angular.json → styles) — no per-component @import.

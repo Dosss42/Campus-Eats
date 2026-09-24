@@ -16,13 +16,16 @@
 
 .empty-state h2 {
   margin: 0 0 6px;
-  font-size: 17px;
-  font-weight: 600;
+  font-size: var(--ce-text-headline-size);
+  line-height: var(--ce-text-headline-leading);
+  letter-spacing: var(--ce-text-headline-tracking);
+  font-weight: var(--ce-text-headline-weight);
   color: var(--ion-text-color, #3a322c);
 }
 
 .empty-state p {
   margin: 0;
-  font-size: 14px;
+  font-size: var(--ce-text-body-size);
+  line-height: var(--ce-text-body-leading);
   max-width: 320px;
 }

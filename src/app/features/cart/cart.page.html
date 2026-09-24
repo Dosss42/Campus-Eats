@@ -1,5 +1,9 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <span class="brand">CampusEats</span>
+    </ion-buttons>
+
     <ion-title>Your Cart</ion-title>
     <ion-buttons slot="end">
       <ion-button
@@ -8,6 +12,8 @@
       >
         <ion-icon slot="icon-only" name="receipt-outline"></ion-icon>
       </ion-button>
+      <app-theme-toggle></app-theme-toggle>
+      <app-account-button></app-account-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

@@ -1,5 +1,146 @@
-ion-content {
-  --background: #fbf7f2;
+.brand {
+  padding-left: 12px;
+  font-size: var(--ce-text-headline-size);
+  line-height: var(--ce-text-headline-leading);
+  letter-spacing: var(--ce-text-headline-tracking);
+  font-weight: var(--ce-text-headline-weight);
+  color: var(--ion-color-primary);
+}
+
+/* Mobile gets a filter icon that opens a bottom sheet; desktop (≥768px,
+   matching the tab-bar → side-menu breakpoint elsewhere in the app) gets
+   the sidebar below instead — never both at once. */
+.mobile-only {
+  display: block;
+}
+
+.desktop-only {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none;
+  }
+
+  .desktop-only {
+    display: block;
+  }
+}
+
+.menu-layout {
+  display: flex;
+  align-items: flex-start;
+}
+
+.sidebar {
+  flex-shrink: 0;
+  width: 220px;
+  padding: 16px 12px;
+  box-sizing: border-box;
+
+  transition: width 0.2s ease;
+}
+
+.sidebar.collapsed {
+  width: 56px;
+  padding: 16px 8px;
+}
+
+.sidebar-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 8px 10px;
+
+  background: var(--ion-item-background);
+  border: none;
+  border-radius: var(--ce-radius-control);
+  box-shadow: var(--ce-shadow-card);
+
+  font-size: var(--ce-text-footnote-size);
+  font-weight: 600;
+  color: var(--ion-text-color);
+  cursor: pointer;
+}
+
+.sidebar-toggle ion-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.sidebar-section {
+  margin-bottom: 20px;
+}
+
+.sidebar-section h2 {
+  margin: 0 0 8px;
+  padding-left: 2px;
+  font-size: var(--ce-text-footnote-size);
+  line-height: var(--ce-text-footnote-leading);
+  letter-spacing: var(--ce-text-footnote-tracking);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ion-color-medium);
+}
+
+.sidebar-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.sidebar-list ion-chip {
+  margin: 0;
+  width: 100%;
+  text-transform: capitalize;
+}
+
+.menu-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  margin: 12px 0 24px;
+}
+
+.pagination-status {
+  font-size: var(--ce-text-footnote-size);
+  color: var(--ion-color-medium);
+}
+
+/* The mobile filter trigger and its "a filter is active" indicator dot. */
+#filter-trigger {
+  position: relative;
+}
+
+.filter-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ion-color-danger);
+}
+
+/* Content inside the filter bottom sheet — reuses .sidebar-section /
+   .sidebar-list from the desktop sidebar above, just with page padding
+   since it isn't nested inside the narrower .sidebar column here. */
+.filter-sheet-content {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 16px;
 }
 
 .cart-nav-button {
@@ -11,7 +152,7 @@ ion-content {
   top: 4px;
   right: 2px;
   padding: 2px 5px;
-  font-size: 10px;
+  font-size: var(--ce-text-caption-size);
   min-width: 16px;
 }
 
@@ -21,15 +162,16 @@ ion-content {
 
 .skeleton-card {
   padding: 16px;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  border-radius: var(--ce-radius-card);
+  background: var(--ion-item-background);
+  box-shadow: var(--ce-shadow-card);
 }
 
 .skeleton-image {
   width: 100%;
-  height: 160px;
-  border-radius: 8px;
+  aspect-ratio: 4 / 3;
+  height: auto;
+  border-radius: var(--ce-radius-control);
   margin-bottom: 12px;
 }
 

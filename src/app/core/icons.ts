@@ -16,6 +16,14 @@ import {
   starOutline,
   timeOutline,
   locationOutline,
+  personCircle,
+  personCircleOutline,
+  chevronBackOutline,
+  chevronForwardOutline,
+  optionsOutline,
+  pricetagOutline,
+  sunnyOutline,
+  moonOutline,
 } from 'ionicons/icons';
 
 /**
@@ -40,5 +48,13 @@ export function registerIcons(): void {
     'star-outline': starOutline,
     'time-outline': timeOutline,
     'location-outline': locationOutline,
+    'person-circle': personCircle,
+    'person-circle-outline': personCircleOutline,
+    'chevron-back-outline': chevronBackOutline,
+    'chevron-forward-outline': chevronForwardOutline,
+    'options-outline': optionsOutline,
+    'pricetag-outline': pricetagOutline,
+    'sunny-outline': sunnyOutline,
+    'moon-outline': moonOutline,
   });
 }

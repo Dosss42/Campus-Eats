@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular';
+
+import { ThemeService } from './core/services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +9,7 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular';
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
-  constructor() {}
+  // Injected (not used directly) purely so the service's constructor runs
+  // here, applying the light/dark theme before any page renders.
+  private theme = inject(ThemeService);
 }

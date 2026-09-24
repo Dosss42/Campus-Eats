@@ -7,6 +7,7 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
+  IonButtons,
   IonItem,
   IonLabel,
   IonInput,
@@ -17,6 +18,7 @@ import {
 } from '@ionic/angular';
 
 import { AuthService } from '../../core/services/auth.service';
+import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 
 @Component({
   selector: 'app-login',
@@ -27,12 +29,14 @@ import { AuthService } from '../../core/services/auth.service';
     IonHeader,
     IonTitle,
     IonToolbar,
+    IonButtons,
     IonItem,
     IonLabel,
     IonInput,
     IonButton,
     IonIcon,
     IonText,
+    ThemeToggleComponent,
   ],
   templateUrl: './login.page.html',
   styleUrl: './login.page.scss',

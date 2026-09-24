@@ -14,6 +14,8 @@ import { RouterLink } from '@angular/router';
 
 import { CartService } from '../../core/services/cart.service';
 import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
+import { AccountButtonComponent } from '../../shared/components/account-button/account-button.component';
+import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 
 @Component({
   selector: 'app-cart',
@@ -28,6 +30,8 @@ import { EmptyStateComponent } from '../../shared/components/empty-state/empty-s
     IonIcon,
     RouterLink,
     EmptyStateComponent,
+    AccountButtonComponent,
+    ThemeToggleComponent,
   ],
   templateUrl: './cart.page.html',
   styleUrl: './cart.page.scss',

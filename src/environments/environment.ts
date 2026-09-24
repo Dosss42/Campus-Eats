@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8000/api',
+  // 8000 is already taken by an unrelated project on this machine (a
+  // Laravel dev server) — the CampusEats API runs on 8001 instead. Start
+  // it with: cd campuseats-api && uvicorn main:app --reload --port 8001
+  apiUrl: 'http://localhost:8001/api',
   // Append to any request while testing, e.g. '?delay=1500' or '?fail=true'.
   // See campuseats-api/API_REFERENCE.md → "Testing loading and error states".
   simulate: '',

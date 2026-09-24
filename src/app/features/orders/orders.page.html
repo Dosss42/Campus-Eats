@@ -1,10 +1,13 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <span class="brand">CampusEats</span>
+    </ion-buttons>
+
     <ion-title>Orders</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="logout()" aria-label="Log out">
-        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
-      </ion-button>
+      <app-theme-toggle></app-theme-toggle>
+      <app-account-button></app-account-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -16,6 +19,48 @@
     <section class="place-order">
 
       <h1>Place an Order</h1>
+
+      <div class="checkout-summary">
+        <h2>Order Summary</h2>
+
+        @if (cart.all().length === 0) {
+
+          <app-empty-state
+            icon="cart-outline"
+            title="Your cart is empty"
+            message="Add dishes from the menu before checking out."
+          >
+            <ion-button routerLink="/tabs/menu" fill="outline" size="small">
+              Browse Menu
+            </ion-button>
+          </app-empty-state>
+
+        } @else {
+
+          @for (line of cart.all(); track line.item.id) {
+            <div class="checkout-row">
+              <img [src]="line.item.image" [alt]="line.item.name" />
+
+              <div class="checkout-info">
+                <span class="checkout-name">
+                  {{ line.item.emoji }} {{ line.item.name }}
+                </span>
+                <span class="checkout-qty">Qty {{ line.quantity }}</span>
+              </div>
+
+              <span class="checkout-subtotal">
+                PHP {{ line.item.price * line.quantity }}
+              </span>
+            </div>
+          }
+
+          <div class="checkout-total">
+            <span>Total</span>
+            <span>PHP {{ cart.total() }}</span>
+          </div>
+
+        }
+      </div>
 
       <ion-item lines="full" class="field">
         <ion-label position="stacked">Customer Name</ion-label>
@@ -48,6 +93,7 @@
       <ion-button
         expand="block"
         class="place-button"
+        [disabled]="cart.all().length === 0"
         (click)="placeOrder()"
       >
         <ion-icon slot="start" name="receipt-outline"></ion-icon>

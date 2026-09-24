@@ -1,6 +1,14 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <span class="brand">CampusEats</span>
+    </ion-buttons>
+
     <ion-title>Sign In</ion-title>
+
+    <ion-buttons slot="end">
+      <app-theme-toggle></app-theme-toggle>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

@@ -32,15 +32,30 @@
     </div>
 
     @if (item.available) {
-      <ion-button
-        expand="block"
-        (click)="onAddToCart()"
-        [attr.aria-label]="'Add ' + item.name + ' to cart'"
-      >
-        Add to Cart
-      </ion-button>
+      <div class="actions">
+        <ion-button
+          class="add-button"
+          size="small"
+          (click)="onAddToCart()"
+          [attr.aria-label]="'Add ' + item.name + ' to cart'"
+        >
+          <ion-icon slot="start" name="cart-outline"></ion-icon>
+          Add
+        </ion-button>
+
+        <ion-button
+          class="buy-button"
+          size="small"
+          fill="outline"
+          (click)="onBuyNow()"
+          [attr.aria-label]="'Buy ' + item.name + ' now'"
+        >
+          Buy
+        </ion-button>
+      </div>
     } @else {
       <ion-button
+        size="small"
         expand="block"
         fill="outline"
         disabled

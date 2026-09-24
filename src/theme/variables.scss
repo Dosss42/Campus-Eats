@@ -101,4 +101,63 @@
   --ion-toolbar-background: #ffffff;
   --ion-toolbar-color: #3a322c;
   --ion-item-background: #ffffff;
+
+  /** Divider/border color used by hand-rolled rows (cart, order summary) —
+   * a plain gray border would look wrong once the surface itself goes
+   * dark, so this is a token rather than a literal hex in those files. */
+  --ce-border: #e5e0da;
+}
+
+// ---------------------------------------------------------------------
+// Dark mode — a real dark variant of the same palette, not Ionic's stock
+// dark theme. Warm dark neutrals throughout (never pure black), surfaces
+// a step lighter than the page background for elevation. Toggled via
+// ThemeService, which sets [data-theme] on <html> (see theme.service.ts);
+// this only activates on an explicit choice or a first-visit OS
+// preference, it does not auto-follow prefers-color-scheme afterwards.
+//
+// The brand colors themselves (primary/secondary/warning/danger) are not
+// redefined here: each is a self-contained bg+contrast-text pair whose
+// ~4.5:1+ ratio doesn't depend on the surrounding page, and separately,
+// terracotta-on-dark-surface / sage-on-dark-surface both still clear
+// 4.5:1 where they're used as plain text (checked). Only the things that
+// really are relative to the page (the neutrals, and "medium" — which
+// *is* used as text and needs to be much lighter on a dark surface than
+// it is on a light one) change.
+// ---------------------------------------------------------------------
+:root[data-theme='dark'] {
+
+  --ion-background-color: #1c1815;
+  --ion-background-color-rgb: 28, 24, 21;
+  --ion-text-color: #f3ede6;
+  --ion-text-color-rgb: 243, 237, 230;
+
+  --ion-toolbar-background: #241f1a;
+  --ion-toolbar-color: #f3ede6;
+  --ion-item-background: #2a241e;
+
+  /** medium — needs to be much lighter here: the light-mode value reads
+   * at only ~3.2:1 on a dark surface. This reaches ~5.8:1. */
+  --ion-color-medium: #a79e96;
+  --ion-color-medium-rgb: 167, 158, 150;
+  --ion-color-medium-contrast: #1c1815;
+  --ion-color-medium-contrast-rgb: 28, 24, 21;
+  --ion-color-medium-shade: #938a82;
+  --ion-color-medium-tint: #b4aba4;
+
+  --ion-color-dark: #f3ede6;
+  --ion-color-dark-rgb: 243, 237, 230;
+  --ion-color-dark-contrast: #1c1815;
+  --ion-color-dark-contrast-rgb: 28, 24, 21;
+  --ion-color-dark-shade: #d6d1ca;
+  --ion-color-dark-tint: #f5f0ea;
+
+  --ion-color-light: #2a241e;
+  --ion-color-light-rgb: 42, 36, 30;
+  --ion-color-light-contrast: #f3ede6;
+  --ion-color-light-contrast-rgb: 243, 237, 230;
+  --ion-color-light-shade: #251f1a;
+  --ion-color-light-tint: #3f382f;
+
+  --ce-border: #3a332c;
 }

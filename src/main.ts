@@ -18,7 +18,11 @@ registerIcons();
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    provideIonicAngular(),
+    // iOS mode gives the whole app Apple's own motion and materials
+    // language for free — spring-like page transitions, swipe-to-go-back,
+    // translucent nav bars, and press feedback instead of Material ripple
+    // — without hand-building gesture/spring physics from scratch.
+    provideIonicAngular({ mode: 'ios' }),
     provideHttpClient(),
     provideRouter(
       routes,

@@ -1,7 +1,14 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <span class="brand">CampusEats</span>
+    </ion-buttons>
+
     <ion-title>Menu</ion-title>
+
     <ion-buttons slot="end">
+      <app-theme-toggle></app-theme-toggle>
+      <app-account-button></app-account-button>
       <ion-button
         routerLink="/tabs/cart"
         aria-label="Go to cart"
@@ -22,8 +29,94 @@
       (ionInput)="onSearch($event.detail.value)"
       aria-label="Search the menu"
     ></ion-searchbar>
+
+    <!-- Catalog, phone layout: a small icon that opens a filter sheet,
+         instead of a strip permanently taking up space above the cards.
+         Desktop gets the sidebar below instead (same signals drive both,
+         so filtering state matches regardless of which is visible). -->
+    <ion-buttons slot="end" class="mobile-only">
+      <ion-button id="filter-trigger" aria-label="Open filters">
+        <ion-icon slot="icon-only" name="options-outline"></ion-icon>
+        @if (hasActiveFilters()) {
+          <span class="filter-dot"></span>
+        }
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+<ion-modal
+  #filterModal
+  trigger="filter-trigger"
+  [breakpoints]="[0, 0.5, 0.9]"
+  [initialBreakpoint]="0.5"
+>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Filters</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="filterModal.dismiss()">Done</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="filter-sheet-content">
+
+      <div class="sidebar-section">
+        <h2>Category</h2>
+
+        <div class="sidebar-list" role="tablist" aria-label="Filter by category">
+
+          <ion-chip
+            role="tab"
+            [attr.aria-selected]="selectedCategory() === 'all'"
+            [color]="selectedCategory() === 'all' ? 'primary' : 'medium'"
+            [outline]="selectedCategory() !== 'all'"
+            (click)="onSelectCategory('all')"
+          >
+            <ion-label>All</ion-label>
+          </ion-chip>
+
+          @for (category of categories(); track category) {
+            <ion-chip
+              role="tab"
+              [attr.aria-selected]="selectedCategory() === category"
+              [color]="selectedCategory() === category ? 'primary' : 'medium'"
+              [outline]="selectedCategory() !== category"
+              (click)="onSelectCategory(category)"
+            >
+              <ion-label>{{ category }}</ion-label>
+            </ion-chip>
+          }
+
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <h2>Price</h2>
+
+        <div class="sidebar-list" role="tablist" aria-label="Filter by price">
+
+          @for (range of priceRanges; track range.value) {
+            <ion-chip
+              role="tab"
+              [attr.aria-selected]="selectedPriceRange() === range.value"
+              [color]="selectedPriceRange() === range.value ? 'primary' : 'medium'"
+              [outline]="selectedPriceRange() !== range.value"
+              (click)="onSelectPriceRange(range.value)"
+            >
+              <ion-icon name="pricetag-outline"></ion-icon>
+              <ion-label>{{ range.label }}</ion-label>
+            </ion-chip>
+          }
+
+        </div>
+      </div>
+
+    </ion-content>
+  </ng-template>
+</ion-modal>
 
 <ion-content [fullscreen]="true">
 
@@ -31,71 +124,182 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-grid [fixed]="true" class="menu-grid">
+  <div class="menu-layout">
 
-    @if (menu.loading() && menu.all().length === 0) {
+    <!-- Catalog, desktop layout: a collapsible left sidebar with category
+         and price filters. Hidden on phone widths (see menu.page.scss). -->
+    <aside class="sidebar desktop-only" [class.collapsed]="!sidebarOpen()">
 
-      <ion-row>
-        @for (row of skeletonRows; track row) {
-          <ion-col size="12" size-md="6" size-lg="4">
-            <div class="skeleton-card">
-              <ion-skeleton-text
-                [animated]="true"
-                class="skeleton-image"
-              ></ion-skeleton-text>
-              <ion-skeleton-text
-                [animated]="true"
-                class="skeleton-title"
-              ></ion-skeleton-text>
-              <ion-skeleton-text
-                [animated]="true"
-                class="skeleton-line"
-              ></ion-skeleton-text>
-              <ion-skeleton-text
-                [animated]="true"
-                class="skeleton-button"
-              ></ion-skeleton-text>
-            </div>
-          </ion-col>
+      <button
+        type="button"
+        class="sidebar-toggle"
+        (click)="toggleSidebar()"
+        [attr.aria-expanded]="sidebarOpen()"
+        aria-label="Toggle filters"
+      >
+        <ion-icon
+          [name]="sidebarOpen() ? 'chevron-back-outline' : 'options-outline'"
+        ></ion-icon>
+        @if (sidebarOpen()) {
+          <span>Filters</span>
         }
-      </ion-row>
+      </button>
 
-    } @else if (menu.error()) {
+      @if (sidebarOpen()) {
 
-      <app-error-state
-        message="We couldn't load the canteen menu."
-        (retry)="menu.load()"
-      ></app-error-state>
+        <div class="sidebar-section">
+          <h2>Category</h2>
 
-    } @else if (items().length === 0 && searchTerm()) {
+          <div class="sidebar-list" role="tablist" aria-label="Filter by category">
 
-      <app-empty-state
-        title="No dishes found"
-        message="Try searching for something else."
-      ></app-empty-state>
+            <ion-chip
+              role="tab"
+              [attr.aria-selected]="selectedCategory() === 'all'"
+              [color]="selectedCategory() === 'all' ? 'primary' : 'medium'"
+              [outline]="selectedCategory() !== 'all'"
+              (click)="onSelectCategory('all')"
+            >
+              <ion-label>All</ion-label>
+            </ion-chip>
 
-    } @else if (items().length === 0) {
+            @for (category of categories(); track category) {
+              <ion-chip
+                role="tab"
+                [attr.aria-selected]="selectedCategory() === category"
+                [color]="selectedCategory() === category ? 'primary' : 'medium'"
+                [outline]="selectedCategory() !== category"
+                (click)="onSelectCategory(category)"
+              >
+                <ion-label>{{ category }}</ion-label>
+              </ion-chip>
+            }
 
-      <app-empty-state
-        title="No dishes available"
-        message="Check back later for the canteen's menu."
-      ></app-empty-state>
+          </div>
+        </div>
 
-    } @else {
+        <div class="sidebar-section">
+          <h2>Price</h2>
 
-      <ion-row>
-        @for (item of items(); track item.id) {
-          <ion-col size="12" size-md="6" size-lg="4">
-            <app-food-card
-              [item]="item"
-              (addToCart)="cart.add($event)"
-            ></app-food-card>
-          </ion-col>
+          <div class="sidebar-list" role="tablist" aria-label="Filter by price">
+
+            @for (range of priceRanges; track range.value) {
+              <ion-chip
+                role="tab"
+                [attr.aria-selected]="selectedPriceRange() === range.value"
+                [color]="selectedPriceRange() === range.value ? 'primary' : 'medium'"
+                [outline]="selectedPriceRange() !== range.value"
+                (click)="onSelectPriceRange(range.value)"
+              >
+                <ion-icon name="pricetag-outline"></ion-icon>
+                <ion-label>{{ range.label }}</ion-label>
+              </ion-chip>
+            }
+
+          </div>
+        </div>
+
+      }
+
+    </aside>
+
+    <div class="menu-main">
+
+      <ion-grid [fixed]="true" class="menu-grid">
+
+        @if (menu.loading() && menu.all().length === 0) {
+
+          <ion-row>
+            @for (row of skeletonRows; track row) {
+              <ion-col size="6" size-md="6" size-lg="4" size-xl="2">
+                <div class="skeleton-card">
+                  <ion-skeleton-text
+                    [animated]="true"
+                    class="skeleton-image"
+                  ></ion-skeleton-text>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    class="skeleton-title"
+                  ></ion-skeleton-text>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    class="skeleton-line"
+                  ></ion-skeleton-text>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    class="skeleton-button"
+                  ></ion-skeleton-text>
+                </div>
+              </ion-col>
+            }
+          </ion-row>
+
+        } @else if (menu.error()) {
+
+          <app-error-state
+            message="We couldn't load the canteen menu."
+            (retry)="menu.load()"
+          ></app-error-state>
+
+        } @else if (items().length === 0 && (searchTerm() || selectedCategory() !== 'all' || selectedPriceRange() !== 'all')) {
+
+          <app-empty-state
+            title="No dishes found"
+            message="Try a different search, category or price range."
+          ></app-empty-state>
+
+        } @else if (items().length === 0) {
+
+          <app-empty-state
+            title="No dishes available"
+            message="Check back later for the canteen's menu."
+          ></app-empty-state>
+
+        } @else {
+
+          <ion-row>
+            @for (item of pagedItems(); track item.id) {
+              <ion-col size="6" size-md="6" size-lg="4" size-xl="2">
+                <app-food-card
+                  [item]="item"
+                  (addToCart)="onAddToCart($event)"
+                  (buyNow)="onBuyNow($event)"
+                ></app-food-card>
+              </ion-col>
+            }
+          </ion-row>
+
+          <nav class="pagination" aria-label="Menu pages">
+            <ion-button
+              fill="clear"
+              size="small"
+              [disabled]="currentPage() === 1"
+              (click)="goToPage(currentPage() - 1)"
+              aria-label="Previous page"
+            >
+              <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+            </ion-button>
+
+            <span class="pagination-status">
+              Page {{ currentPage() }} of {{ totalPages() }}
+            </span>
+
+            <ion-button
+              fill="clear"
+              size="small"
+              [disabled]="currentPage() === totalPages()"
+              (click)="goToPage(currentPage() + 1)"
+              aria-label="Next page"
+            >
+              <ion-icon slot="icon-only" name="chevron-forward-outline"></ion-icon>
+            </ion-button>
+          </nav>
+
         }
-      </ion-row>
 
-    }
+      </ion-grid>
 
-  </ion-grid>
+    </div>
+
+  </div>
 
 </ion-content>

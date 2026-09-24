@@ -35,7 +35,15 @@ export class FoodCardComponent {
 
   @Output() addToCart = new EventEmitter<MenuItem>();
 
+  /** "Buy" — adds the item to the cart and takes the shopper straight to
+   * checkout, for the one-tap path when they already know what they want. */
+  @Output() buyNow = new EventEmitter<MenuItem>();
+
   onAddToCart(): void {
     this.addToCart.emit(this.item);
+  }
+
+  onBuyNow(): void {
+    this.buyNow.emit(this.item);
   }
 }

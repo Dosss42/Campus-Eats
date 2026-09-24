@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { Haptics, NotificationType } from '@capacitor/haptics';
 
 import {
@@ -25,10 +25,11 @@ import {
 
 import { OrderService } from '../../core/services/order.service';
 import { CartService } from '../../core/services/cart.service';
-import { AuthService } from '../../core/services/auth.service';
 import { Order, OrderStatus } from '../../core/models/order.model';
 import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
 import { ErrorStateComponent } from '../../shared/components/error-state/error-state.component';
+import { AccountButtonComponent } from '../../shared/components/account-button/account-button.component';
+import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 
 const UNDO_WINDOW_MS = 4000;
 
@@ -52,8 +53,11 @@ const UNDO_WINDOW_MS = 4000;
     IonCol,
     IonChip,
     FormsModule,
+    RouterLink,
     EmptyStateComponent,
     ErrorStateComponent,
+    AccountButtonComponent,
+    ThemeToggleComponent,
   ],
   templateUrl: './orders.page.html',
   styleUrl: './orders.page.scss',
@@ -64,9 +68,6 @@ export class OrderPage implements OnInit {
 
   readonly cart = inject(CartService);
 
-  readonly auth = inject(AuthService);
-
-  private router = inject(Router);
   private loadingCtrl = inject(LoadingController);
   private toastCtrl = inject(ToastController);
 
@@ -195,11 +196,6 @@ export class OrderPage implements OnInit {
       this.orderService.cancel(removed.id);
     }
 
-  }
-
-  logout(): void {
-    this.auth.logout();
-    this.router.navigateByUrl('/tabs/menu');
   }
 
   statusColor(status: OrderStatus): string {

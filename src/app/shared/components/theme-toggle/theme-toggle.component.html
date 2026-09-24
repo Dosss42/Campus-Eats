@@ -1,0 +1,11 @@
+<ion-button
+  (click)="theme.toggle()"
+  [attr.aria-label]="
+    theme.theme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+  "
+>
+  <ion-icon
+    slot="icon-only"
+    [name]="theme.theme() === 'dark' ? 'sunny-outline' : 'moon-outline'"
+  ></ion-icon>
+</ion-button>

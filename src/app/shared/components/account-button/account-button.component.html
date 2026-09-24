@@ -1,0 +1,34 @@
+<ion-button
+  [id]="triggerId"
+  [attr.aria-label]="auth.isAuthenticated() ? 'Account menu' : 'Log in'"
+>
+  <ion-icon
+    slot="icon-only"
+    [name]="auth.isAuthenticated() ? 'person-circle' : 'person-circle-outline'"
+  ></ion-icon>
+</ion-button>
+
+<ion-popover
+  [trigger]="triggerId"
+  [dismissOnSelect]="true"
+  side="bottom"
+  alignment="end"
+>
+  <ng-template>
+    <ion-content>
+      <ion-list lines="none">
+        @if (auth.isAuthenticated()) {
+          <ion-item button [detail]="false" (click)="logout()">
+            <ion-icon slot="start" name="log-out-outline"></ion-icon>
+            <ion-label>Log out</ion-label>
+          </ion-item>
+        } @else {
+          <ion-item button [detail]="false" (click)="goToLogin()">
+            <ion-icon slot="start" name="log-in-outline"></ion-icon>
+            <ion-label>Log in</ion-label>
+          </ion-item>
+        }
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-popover>

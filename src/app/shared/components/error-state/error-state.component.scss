@@ -15,13 +15,20 @@
 
 .error-state h2 {
   margin: 0 0 6px;
-  font-size: 17px;
-  font-weight: 600;
+  font-size: var(--ce-text-headline-size);
+  line-height: var(--ce-text-headline-leading);
+  letter-spacing: var(--ce-text-headline-tracking);
+  font-weight: var(--ce-text-headline-weight);
 }
 
 .error-state p {
   margin: 0 0 20px;
-  font-size: 14px;
+  font-size: var(--ce-text-body-size);
+  line-height: var(--ce-text-body-leading);
   color: var(--ion-color-medium);
   max-width: 320px;
+}
+
+.error-state ion-button {
+  --border-radius: var(--ce-radius-control);
 }
